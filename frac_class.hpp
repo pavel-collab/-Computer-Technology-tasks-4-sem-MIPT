@@ -15,30 +15,30 @@ int gcd (T a, T b) {
 	return a;
 }
 
-// create a teamplate for numenator and denumenator type
+// create a teamplate for numerator and denominator type
 // it can be int, short, long, double, float etc
 template <typename T> class Fraction
 {
-    T numenator_;
-    T denamenator_;
+    T numerator_;
+    T denominator_;
 
     public:
 
     // default initialisation + direct initialisation
-    Fraction(const T& N = 1, const T& D = 1) : numenator_(N), denamenator_(D)
+    Fraction(const T& N = 1, const T& D = 1) : numerator_(N), denominator_(D)
     {
         if (D == 0) 
             throw std::exception();
         // std::cout << "Constructor is called for [" << this << "] " << std::endl;
     }
     // copy constructor
-    Fraction(const Fraction& frac) : numenator_(frac.numenator_), denamenator_(frac.denamenator_) {}
+    Fraction(const Fraction& frac) : numerator_(frac.numerator_), denominator_(frac.denominator_) {}
     // assignment operator
     Fraction& operator=(const Fraction& frac)
     {
         if (this == &frac) {return *this;}
-        numenator_ = frac.numenator_;
-        denamenator_ = frac.denamenator_;
+        numerator_ = frac.numerator_;
+        denominator_ = frac.denominator_;
         return *this;
     }
     ~Fraction()
@@ -46,22 +46,22 @@ template <typename T> class Fraction
         // std::cout << "Distructor is called for [" << this << "] " << std::endl;
     }
 
-    T get_numenator()
+    T get_numerator()
     {
-        return numenator_;
+        return numerator_;
     }
-    T get_denamenator()
+    T get_denominator()
     {
-        return denamenator_;
+        return denominator_;
     }
 
     // упрощение дроби
     const Fraction Simplification()
     {
-        T GCD = gcd(numenator_, denamenator_);
-        T numenator = numenator_ / GCD;
-        T denamenator = denamenator_ / GCD;
-        return Fraction(numenator, denamenator);
+        T GCD = gcd(numerator_, denominator_);
+        T numerator = numerator_ / GCD;
+        T denominator = denominator_ / GCD;
+        return Fraction(numerator, denominator);
     }
 
     //-------------------------------------overloading of operators-------------------------------------
@@ -69,40 +69,40 @@ template <typename T> class Fraction
     // overload operator '+' by value
     const Fraction operator+(const T& value)
     {
-        T numenator = numenator_ + value*denamenator_;
-        return Fraction(numenator, this->denamenator_).Simplification();        
+        T numerator = numerator_ + value*denominator_;
+        return Fraction(numerator, this->denominator_).Simplification();        
     }
     // overload operator '+' by another fraction
     const Fraction operator+(const Fraction& frac)
     {
-        T numenator = numenator_ * frac.denamenator_ + frac.numenator_*denamenator_;
-        T denamenator = denamenator_ * frac.denamenator_;
-        return Fraction(numenator, denamenator).Simplification();
+        T numerator = numerator_ * frac.denominator_ + frac.numerator_*denominator_;
+        T denominator = denominator_ * frac.denominator_;
+        return Fraction(numerator, denominator).Simplification();
     }
 
     // overload operator '-' by value
     const Fraction operator-(const T& value)
     {
-        T numenator = value * denamenator_;
-        return Fraction(numenator, this->denamenator_).Simplification();        
+        T numerator = value * denominator_;
+        return Fraction(numerator, this->denominator_).Simplification();        
     }
     // overload operator '-' by another fraction
     const Fraction operator-(const Fraction& frac)
     {
-        T numenator = numenator_*frac.denamenator_ - frac.numenator_*denamenator_;
-        T denamenator = denamenator_ * frac.denamenator_;
-        return Fraction(numenator, denamenator).Simplification();
+        T numerator = numerator_*frac.denominator_ - frac.numerator_*denominator_;
+        T denominator = denominator_ * frac.denominator_;
+        return Fraction(numerator, denominator).Simplification();
     }
 
     const Fraction operator*(const T& value)
     {
-        T numenator = numenator_ * value;
-        return Fraction(numenator, this->denamenator_).Simplification();
+        T numerator = numerator_ * value;
+        return Fraction(numerator, this->denominator_).Simplification();
     }
     const Fraction operator*(const Fraction& frac)
     {
-        T numinator = numenator_ * frac.numenator_;
-        T denaminator = denamenator_ * frac.denamenator_;
+        T numinator = numerator_ * frac.numerator_;
+        T denaminator = denominator_ * frac.denominator_;
         return Fraction(numinator, denaminator).Simplification();
     }
 
@@ -110,16 +110,16 @@ template <typename T> class Fraction
     {
         if (value == 0)
             throw std::exception(); 
-        T denaminator = denamenator_ * value;
-        return Fraction(this->numenator_, denaminator);
+        T denaminator = denominator_ * value;
+        return Fraction(this->numerator_, denaminator);
     }
     const Fraction operator/(const Fraction& frac)
     {
-        if (frac.numenator_ == 0) 
+        if (frac.numerator_ == 0) 
             throw std::exception();
 
-        T numinator = numenator_ * frac.denamenator_;
-        T denaminator = denamenator_ * frac.numenator_;
+        T numinator = numerator_ * frac.denominator_;
+        T denaminator = denominator_ * frac.numerator_;
         return Fraction(numinator, denaminator).Simplification();
     }
 
@@ -129,6 +129,6 @@ template <typename T> class Fraction
 template <typename T>
 std::ostream& operator<<(std::ostream& out, Fraction<T>& obj)
 {
-    out << "(" << obj.get_numenator() << ")/(" << obj.get_denamenator() << ")";
+    out << "(" << obj.get_numerator() << ")/(" << obj.get_denominator() << ")";
     return out;
 }
