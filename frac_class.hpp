@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cmath> // for floor
 #include <numeric> // for std::gcd 
-
-#include <exception>
-#include <stdexcept>
+#include <exception> // for exceptions
+#include <stdexcept> // for exceptions types
+#include <utility> // for std::rel_ops
 
 // точность перевода из числа с плавающей точкой в обычную дробь
 #define ACCURACY 1e-8
@@ -22,7 +22,8 @@ template <typename T> class Fraction
 
     public:
 
-    // default initialisation + direct initialisation
+    //-------------------------------------Constructor-------------------------------------
+
     Fraction(const T& N = 1, const T& D = 1) : numerator_(N), denominator_(D)
     {
         if (D == 0) 
@@ -32,80 +33,32 @@ template <typename T> class Fraction
         denominator_ = denominator_ / GCD;
     }
 
-    // getters
+    //-------------------------------------getters-------------------------------------
+
     const T get_numerator()   const { return numerator_; }
     const T get_denominator() const { return denominator_; }
 
-    //-------------------------------------overloading of binary operators-------------------------------------
+    //-------------------------------------overloading of operators (+=, -=, *=, /=)-------------------------------------
 
-    /*
-    We're don't overload operations +, -, * and / by value,
-    cause this operations are realized by compilator with implicit type casting
-    */
-
-    // overload operator '+' by another fraction
-    const Fraction operator+(const Fraction& frac)
-    {
-        T numerator = numerator_ * frac.denominator_ + frac.numerator_*denominator_;
-        T denominator = denominator_ * frac.denominator_;
-        return Fraction(numerator, denominator);
-    }
-
-    // overload operator '-' by another fraction
-    const Fraction operator-(const Fraction& frac)
-    {
-        T numerator = numerator_*frac.denominator_ - frac.numerator_*denominator_;
-        T denominator = denominator_ * frac.denominator_;
-        return Fraction(numerator, denominator);
-    }
-
-    // overload operator '*' by another fraction
-    const Fraction operator*(const Fraction& frac)
-    {
-        T numinator = numerator_ * frac.numerator_;
-        T denaminator = denominator_ * frac.denominator_;
-        return Fraction(numinator, denaminator);
-    }
-
-    // overload operator '/' by another fraction
-    const Fraction operator/(const Fraction& frac)
-    {
-        if (frac.numerator_ == 0) 
-            throw std::runtime_error("Division by zero!");
-
-        T numinator = numerator_ * frac.denominator_;
-        T denaminator = denominator_ * frac.numerator_;
-        return Fraction(numinator, denaminator);
-    }
-
-    // overload operator '++'
-    const Fraction& operator++() 
-    {
-        *this = *this + 1;
-        return *this;
-    }
-    // overload operator '--'
-    const Fraction& operator--() 
-    {
-        *this = *this - 1;
-        return *this;
-    }
     // overload operator '+='
     const Fraction& operator+=(const Fraction& frac) 
     {
-        *this = *this + frac;
+        numerator_= numerator_ * frac.denominator_ + frac.numerator_ * denominator_;
+        denominator_= denominator_ * frac.denominator_;
         return *this;
     }
     // overload operator '-='
     const Fraction& operator-=(const Fraction& frac) 
     {
-        *this = *this - frac;
+        numerator_= numerator_ * frac.denominator_ - frac.numerator_*denominator_;
+        denominator_= denominator_ * frac.denominator_;
         return *this;
     }
     // overload operator '*='
     const Fraction& operator*=(const Fraction& frac) 
     {
-        *this = *this * frac;
+        numerator_ = numerator_ * frac.numerator_;
+        denominator_ = denominator_ * frac.denominator_;
         return *this;
     }
     // overload operator '/='
@@ -113,9 +66,38 @@ template <typename T> class Fraction
     {
         if (frac.numerator_ == 0) 
             throw std::runtime_error("Division by zero!");
-        *this = *this / frac;
+        numerator_ = numerator_ * frac.denominator_;
+        denominator_ = denominator_ * frac.numerator_;
         return *this;
     }
+
+    //-------------------------------------overloading of operators (++, --)-------------------------------------
+
+    const Fraction& operator++() 
+    {
+        *this = *this += 1;
+        return *this;
+    }
+
+    const Fraction& operator--() 
+    {
+        *this = *this -= 1;
+        return *this;
+    }
+
+    const Fraction operator++(int) {
+        Fraction temp = *this;
+        ++temp;
+        return temp;
+    }
+
+    const Fraction operator--(int) {
+        Fraction temp = *this;
+        --temp;
+        return temp;
+    }
+
+    //-------------------------------------Some other class methods-------------------------------------
 
     // приведение обычной дроби к десятичной типа float
     double decimal() const { return static_cast<double>(numerator_) / denominator_; }
@@ -136,12 +118,29 @@ template <typename T> class Fraction
         Fraction A{static_cast<T>((dec - whole_part) * cntr), cntr};
         A = A + whole_part;
 
-        // *this = A;
         return A;
     }
 };
 
-// overloading of operator '<<' for members of class Fraction
+//-------------------------------------overloading of operators (==, !=, <, >, >=, <=)-------------------------------------
+
+// базовые операторы сравнения
+template <typename T>
+bool operator==(const Fraction<T>& lh, const Fraction<T>& rh) { return lh.get_numerator() * rh.get_denominator() == rh.get_numerator() * lh.get_denominator(); }
+template <typename T>
+bool operator<(const Fraction<T>& lh, const Fraction<T>& rh) { return lh.get_numerator() * rh.get_denominator() < rh.get_numerator() * lh.get_denominator(); }
+// зависимые операторы сравнения
+template <typename T>
+bool operator> (const Fraction<T>& lh, const Fraction<T>& rh)  { return std::rel_ops::operator>(lh, rh); }
+template <typename T>
+bool operator<=(const Fraction<T>& lh, const Fraction<T>& rh) { return std::rel_ops::operator<=(lh, rh); }
+template <typename T>
+bool operator>=(const Fraction<T>& lh, const Fraction<T>& rh) { return std::rel_ops::operator>=(lh, rh); }
+template <typename T>
+bool operator!=(const Fraction<T>& lh, const Fraction<T>& rh) { return std::rel_ops::operator!=(lh, rh); }
+
+//-------------------------------------overloading of operator (<<)-------------------------------------
+
 template <typename T>
 std::ostream& operator<<(std::ostream& out, const Fraction<T>& obj)
 {
@@ -149,11 +148,52 @@ std::ostream& operator<<(std::ostream& out, const Fraction<T>& obj)
     return out;
 }
 
+//-------------------------------------overloading of operators (+, -, *, /)-------------------------------------
+
+template <typename T, typename I>
+const Fraction<T> operator+(const Fraction<T>& lhs, const I& rhs)
+{
+    Fraction<T> tmp{lhs};
+    tmp += rhs;
+    return tmp;
+}
+
+template <typename T, typename I>
+const Fraction<T> operator-(const Fraction<T>& lhs, const I& rhs)
+{
+    Fraction<T> tmp{lhs};
+    tmp -= rhs;
+    return tmp;
+}
+
+template <typename T, typename I>
+const Fraction<T> operator*(const Fraction<T>& lhs, const I& rhs)
+{
+    Fraction<T> tmp{lhs};
+    tmp *= rhs;
+    return tmp;
+}
+
+template <typename T, typename I>
+const Fraction<T> operator/(const Fraction<T>& lhs, const I& rhs)
+{
+    Fraction<T> tmp{lhs};
+    tmp /= rhs;
+    return tmp;
+}
+
+
 //! когда пытаюсь поставить в конструкторе assert или условие или кинуть ислючение
 //! на предмет std::is_integral<T>::value == false, компилятор опережает
 //! и генерит ошибку компиляции в связи с использованием std::gcd
 //! другими словами компилятор слишком умный и одновременно слишком тупой, чтобы понять, что
 //! я самостоятельно отслеживаю нужный тип данных
+
+//??? разобраться с std::is_integral
+//??? реализация операторов сравнения вне тела класса
+//??? не работают штучки 20го стандарта (#include <compare>)
+//??? можно ли сделать описание метода класса вне тела класса (в теле класса только объявить функцию)
+//??? std::rel_ops -- не лучше ли сделать using namespace std::rel_ops
 
 //* Поменял собственную написанную функцию gcd на ту же функцию стандартной библиотеки
 //* убрал некоторые опечатки в комментариях
@@ -164,6 +204,10 @@ std::ostream& operator<<(std::ostream& out, const Fraction<T>& obj)
 //* добавил метод приведения числа с плавающей точкой типа double к объекту класса Fraction
 //* перегрузил дополнительные операторы (++, --, +=, -=, *=, /=)
 //* улучшил исключения: нашел нужный тип класса exception
+//* перегрузил операторы сравнения
+
+//! переписал перегрузку операторов: теперь бинарные операторы перегружены вне класса потому что это не методы:
+//! они принимают 2 атрибута, но при этом перестало работать автоматическое сокращение
 
 //TODO: перегрузить операторы сравнения
 //TODO: написать gtests

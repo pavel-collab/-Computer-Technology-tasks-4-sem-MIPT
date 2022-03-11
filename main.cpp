@@ -1,9 +1,10 @@
 //* compile with: g++ -std=c++17 main.cpp
 #include <iostream>
-#include <numeric> // for std::gcd
 #include <cmath> // for floor
-#include <exception>
-#include <stdexcept>
+#include <numeric> // for std::gcd 
+#include <exception> // for exceptions
+#include <stdexcept> // for exceptions types
+#include <utility> // for std::rel_ops
 #include "frac_class.hpp"
 
 /*
@@ -14,16 +15,34 @@
 int main()
 {   
 
+    Fraction<int> a(2, 3);
+    Fraction<int> b(3, 4);
+    Fraction<int> x(5, 2);
+    Fraction<int> y(10, 4);
+
+    if (x == y) {
+        puts("x == y");
+    }
+    if (a >= b) {
+        puts("a >= b");
+    }
+    else {
+        puts("a <= b");
+    }
+
     try
     {
-        // Fraction<int> a(1, 0);
-        Fraction<int> x(2, 4);
-        x/=0;
+        Fraction<int> a(3, 4);
+        Fraction<int> b(5, 2);
+
+        std::cout << a++ << std::endl;
+
+        auto r = a / b;
+        std::cout << r << std::endl;
     }
-    catch(const std::runtime_error& err)
+    catch(const std::runtime_error& e)
     {
-        std::cerr << "Runtime error: " << err.what() << std::endl;
-        exit(1);
+        std::cerr << "Run time error: " << e.what() << '\n';
     }
 
     return 0;
