@@ -2,6 +2,9 @@
 #include <cmath> // for floor
 #include <numeric> // for std::gcd 
 
+#include <exception>
+#include <stdexcept>
+
 // точность перевода из числа с плавающей точкой в обычную дробь
 #define ACCURACY 1e-8
 
@@ -23,7 +26,7 @@ template <typename T> class Fraction
     Fraction(const T& N = 1, const T& D = 1) : numerator_(N), denominator_(D)
     {
         if (D == 0) 
-            throw std::exception();
+            throw std::runtime_error("Division by zero!");
         T GCD = std::gcd(numerator_, denominator_);
         numerator_ = numerator_ / GCD;
         denominator_ = denominator_ / GCD;
@@ -68,7 +71,7 @@ template <typename T> class Fraction
     const Fraction operator/(const Fraction& frac)
     {
         if (frac.numerator_ == 0) 
-            throw std::exception();
+            throw std::runtime_error("Division by zero!");
 
         T numinator = numerator_ * frac.denominator_;
         T denaminator = denominator_ * frac.numerator_;
@@ -108,6 +111,8 @@ template <typename T> class Fraction
     // overload operator '/='
     const Fraction& operator/=(const Fraction& frac) 
     {
+        if (frac.numerator_ == 0) 
+            throw std::runtime_error("Division by zero!");
         *this = *this / frac;
         return *this;
     }
@@ -158,7 +163,8 @@ std::ostream& operator<<(std::ostream& out, const Fraction<T>& obj)
 //* добавил метод приведения дроби Fraction к десятичному числу типа double
 //* добавил метод приведения числа с плавающей точкой типа double к объекту класса Fraction
 //* перегрузил дополнительные операторы (++, --, +=, -=, *=, /=)
+//* улучшил исключения: нашел нужный тип класса exception
 
 //TODO: перегрузить операторы сравнения
 //TODO: написать gtests
-//TODO: написать нормальные исключения
+//TODO: написать для них CMake file
