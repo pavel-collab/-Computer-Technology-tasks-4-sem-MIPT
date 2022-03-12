@@ -35,7 +35,7 @@ int main()
         Fraction<int> a(3, 4);
         Fraction<int> b(5, 2);
 
-        std::cout << a++ << std::endl;
+        std::cout << a << std::endl;
 
         auto r = a / b;
         std::cout << r << std::endl;

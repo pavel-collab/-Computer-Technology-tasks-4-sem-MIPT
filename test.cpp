@@ -70,13 +70,12 @@ TEST(ClassFraction, FractionUnarOperators)
     Fraction<int64_t> b(25, 3);
 
     ++a;
+    std::cout<< a << std::endl;
     ASSERT_EQ(a, Fraction<int64_t>(16, 15));
-    a++;
-    ASSERT_EQ(a, Fraction<int64_t>(21, 15));
+    ASSERT_EQ(a++, Fraction<int64_t>(31, 15));
     ++b;
     ASSERT_EQ(b, Fraction<int64_t>(28, 3));
-    b++;
-    ASSERT_EQ(b, Fraction<int64_t>(31, 3));
+    ASSERT_EQ(b++, Fraction<int64_t>(31, 3));
 
 }
 
@@ -93,17 +92,17 @@ TEST(ClassFraction, FractionBinarOperators)
     auto t = c / 9;
     EXPECT_EQ(x, Fraction<short>(11, 3));
     EXPECT_EQ(y, Fraction<short>(-1, 2));
-    EXPECT_EQ(d, Fraction<short>(5, 1));
-    EXPECT_EQ(c, Fraction<short>(1, 10));
+    EXPECT_EQ(z, Fraction<short>(5, 1));
+    EXPECT_EQ(t, Fraction<short>(1, 10));
 
     auto m = y / x;
-    EXPECT_EQ(m, Fraction<short>(-3, 2));
+    EXPECT_EQ(m, Fraction<short>(-3, 22));
     auto n = d + c;
-    EXPECT_EQ(n, Fraction<short>(51, 10));
+    EXPECT_EQ(n, Fraction<short>(77, 30));
     auto r = x - y;
     EXPECT_EQ(r, Fraction<short>(25, 6));
     auto p = y * d;
-    EXPECT_EQ(p, Fraction<short>(-5, 2));
+    EXPECT_EQ(p, Fraction<short>(-5, 6));
 }
 
 //! дописать тесты на операторы сравнения
