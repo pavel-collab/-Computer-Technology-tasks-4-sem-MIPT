@@ -1,8 +1,11 @@
 #! /usr/bin/env python3
-from math import gcd
+from math import gcd, floor
+
+from numpy import double
 
 class Fraction:
     __slots__ = ['__numerator', '__denominator']
+    ACCURACY = 1e-8 # accuracy class constant
 
     #----------------------------------------------------Constructor----------------------------------------------------
     
@@ -13,7 +16,6 @@ class Fraction:
         GCD = gcd(N, D)
         self.__numerator = int(N / GCD)
         self.__denominator = int(D / GCD)
-        print("Constructor called")
 
     #----------------------------------------------------Getters----------------------------------------------------
     
@@ -228,23 +230,28 @@ class Fraction:
 
     #----------------------------------------------------Some other methods for class Fraction----------------------------------------------------
 
+    def decimal(self):
+        return double(self.__numerator / self.__denominator)
+    
+    def float2frac(self, dec):
+        whole_part = floor(dec)
+        frac_part = dec - whole_part
+
+        cntr = 1
+        while (frac_part > self.ACCURACY and cntr < 1e8):
+            cntr *= 10
+            frac_part *= 10
+            frac_part -= floor(frac_part)
+
+        tmp = Fraction(int((dec - whole_part) * cntr), cntr)
+        tmp += whole_part
+        return tmp
     #TODO: write some other methods (goto c++ realisation)
 
 def main():
     x = Fraction(1, 2)
-    y = Fraction(3, 2)
-    z = Fraction(2, 4)
-
-    z/=0
-
-    if (x >= z):
-        print(1)
-        print(x)
-        print(y)
-    else:
-        print(2)
-        print(x)
-        print(y)
+    print(x.decimal())
+    print(Fraction().float2frac(6.25))
 
 if __name__ == '__main__':
     main()
