@@ -7,10 +7,8 @@ class Fraction:
     #----------------------------------------------------Constructor----------------------------------------------------
     
     def __init__(self, N = 1, D = 1):
-        try:
-            empty = N / D
-        except ZeroDivisionError as err:
-            print(err)
+        if D == 0:
+            raise ZeroDivisionError
 
         GCD = gcd(N, D)
         self.__numerator = int(N / GCD)
@@ -47,7 +45,7 @@ class Fraction:
                 self.__denominator
             )
         else:
-            return NotImplemented
+            raise NotImplemented
 
     ## overloading operator "-"
     def __sub__(self, other):
@@ -62,7 +60,7 @@ class Fraction:
                 self.__denominator
             )
         else:
-            return NotImplemented
+            raise NotImplemented
 
     ## overloading operator "*"
     def __mul__(self, other):
@@ -77,31 +75,28 @@ class Fraction:
                 self.__denominator
             )
         else:
-            return NotImplemented
+            raise NotImplemented
 
     ## overloading operator "/"
     def __truediv__(self, other):
         if isinstance(other, Fraction):
-            try:
-                empty = 1 / other.__numerator
-            except ZeroDivisionError as err:
-                print(err)
+            if other.__numerator == 0:
+                raise ZeroDivisionError
 
             return Fraction(
                 self.__numerator * other.__numerator,
                 self.__denominator * other.__denominator
             )
         elif isinstance(other, int):
-            try:
-                empty = 1 / other
-            except ZeroDivisionError as err:
-                print(err)
+            if other == 0:
+                raise ZeroDivisionError
+            
             return Fraction(
                 self.__numerator - other * self.__denominator,
                 self.__denominator
             )
         else:
-            return NotImplemented
+            raise NotImplemented
     
     ## overloading operator "**"
     def __pow__(self, other):
@@ -111,7 +106,7 @@ class Fraction:
                 self.__denominator ** other
             )
         else:
-            return NotImplemented
+            raise NotImplemented
     
     #----------------------------------------------------Overloading of unar operators----------------------------------------------------
 
@@ -124,7 +119,7 @@ class Fraction:
             self.__numerator += other * self.__denominator
             return self
         else:
-            return NotImplemented
+            raise NotImplemented
 
     def __isub__(self, other):
         if isinstance(other, Fraction):
@@ -135,7 +130,7 @@ class Fraction:
             self.__numerator -= other * self.__denominator
             return self
         else:
-            return NotImplemented
+            raise NotImplemented
     
     def __imul__(self, other):
         if isinstance(other, Fraction):
@@ -146,28 +141,24 @@ class Fraction:
             self.__numerator *= other
             return self
         else:
-            return NotImplemented
+            raise NotImplemented
 
     def __itruediv__(self, other):
         if isinstance(other, Fraction):
-            try:
-                empty = 1 / other.__numerator
-            except ZeroDivisionError as err:
-                print(err)
+            if other.__numerator == 0:
+                raise ZeroDivisionError
 
             self.__numerator *= other.__denominator
             self.__denominator *= other.__numerator
             return self
         elif isinstance(other, int):
-            try:
-                empty = 1 / other
-            except ZeroDivisionError as err:
-                print(err)
+            if other == 0:
+                raise ZeroDivisionError
 
             self.__denominator *= other
             return self
         else:
-            return NotImplemented
+            raise NotImplemented
 
     #----------------------------------------------------Overloading of right operators----------------------------------------------------
 
@@ -190,10 +181,8 @@ class Fraction:
         )
 
     def __rtruediv__(self, other):
-        try:
-            empty = 1 / self.__denominator
-        except ZeroDivisionError as err:
-            print(err)
+        if self.__denominator == 0:
+            raise ZeroDivisionError
 
         return Fraction(
             other * self.__denominator,
@@ -208,7 +197,7 @@ class Fraction:
         elif isinstance(other, int):
             return self.__numerator == self.__denominator * other
         else:
-            return NotImplemented
+            raise NotImplemented
     
     #! не факт, что истинность == означает ложность !=
     #! поэтому перегружаем оба оператора
@@ -218,7 +207,7 @@ class Fraction:
         elif isinstance(other, int):
             return self.__numerator != self.__denominator * other
         else:
-            return NotImplemented
+            raise NotImplemented
     
     def __gt__(self, other):
         if isinstance(other, Fraction):
@@ -226,7 +215,7 @@ class Fraction:
         elif isinstance(other, int):
             return self.__numerator > self.__denominator * other
         else:
-            return NotImplemented
+            raise NotImplemented
     
     def __lt__(self, other):
         return other > self
@@ -245,6 +234,8 @@ def main():
     x = Fraction(1, 2)
     y = Fraction(3, 2)
     z = Fraction(2, 4)
+
+    z/=0
 
     if (x >= z):
         print(1)
