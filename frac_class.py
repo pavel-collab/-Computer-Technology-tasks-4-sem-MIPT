@@ -1,7 +1,8 @@
 #! /usr/bin/env python3
 from math import gcd, floor
 
-from numpy import double
+#??? стндартные метаклассы -> убирать типовые куски кода (перегрузка ненужных операторов)
+#??? получить аналог неявного преобразования типов (реализация правых операторов через вызов конструктора + левые)
 
 class Fraction:
     __slots__ = ['__numerator', '__denominator']
@@ -231,7 +232,7 @@ class Fraction:
     #----------------------------------------------------Some other methods for class Fraction----------------------------------------------------
 
     def decimal(self):
-        return double(self.__numerator / self.__denominator)
+        return float(self.__numerator / self.__denominator)
     
     def float2frac(self, dec):
         whole_part = floor(dec)
