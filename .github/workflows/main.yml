@@ -13,14 +13,14 @@ jobs:
     
     steps:
       - name: Python instaling
+      # Чекаутим код
+        uses: actions/checkout@v2
       
       # Устанавливаем python нужной версии
       - uses: actions/setup-python@v1
         with:
           python-version: '3.8'
           architecture: 'x64'
-      # Чекаутим код
-      - uses: actions/checkout@v2
       - name: Run tests
         run: |
              ls -l -a &&
