@@ -24,7 +24,6 @@ jobs:
       - name: Run tests
         run: |
              ls -l -a &&
-             cd Computer-Technology-tasks-4-sem-MIPT &&
              pwd &&
              python tests.py -v
     
