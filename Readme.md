@@ -29,3 +29,7 @@ To run executable file, use:
 ```
 ./frac_class.py
 ```
+To run test file use:
+```
+python3 tests.py -v
+```
