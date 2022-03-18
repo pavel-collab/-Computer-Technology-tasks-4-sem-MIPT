@@ -1,3 +1,6 @@
+# -------------------------------
+# comments example
+# -------------------------------
 name: Run-tests-on-any-Push-event
 # Запуск при любом push евенте в ветку master
 on:
