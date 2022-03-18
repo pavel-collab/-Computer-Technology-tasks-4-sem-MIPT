@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Python instaling
       
-      # Чекаутим код
-        uses: actions/checkout@v2
       # Устанавливаем python нужной версии
       - uses: actions/setup-python@v1
         with:
@@ -27,6 +25,8 @@ jobs:
     needs: [prepare_for_tests]
     
     steps:
+    # Чекаутим код
+      - uses: actions/checkout@v2
       - name: Run tests
         run: |
              ls -l -a &&
