@@ -17,6 +17,4 @@ jobs:
           python-version: '3.8'
           architecture: 'x64'
       - name: Run tests
-        run: coverage run tests.py
-      - name: Tests report
-        run: coverage report
+        run: python3 tests.py -v
