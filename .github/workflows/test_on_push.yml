@@ -1,13 +1,14 @@
-name: Run tests on any Push event
+name: Run-tests-on-any-Push-event
 # Запуск при любом push евенте в ветку master
 on:
   push:
     branches:
-      - 'master'
+      - master
 jobs:
   run_tests:
     runs-on: [ubuntu-latest]
     steps:
+      - name: Python instaling
       # Чекаутим код
       - uses: actions/checkout@master
       # Устанавливаем python нужной версии
