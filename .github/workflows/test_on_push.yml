@@ -10,6 +10,7 @@ jobs:
     
     steps:
       - name: Python instaling
+      
       # Чекаутим код
         uses: actions/checkout@v1
       # Устанавливаем python нужной версии
