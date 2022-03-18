@@ -87,16 +87,16 @@ class Fraction:
                 raise ZeroDivisionError
 
             return Fraction(
-                self.__numerator * other.__numerator,
-                self.__denominator * other.__denominator
+                self.__numerator * other.__denominator,
+                self.__denominator * other.__numerator
             )
         elif isinstance(other, int):
             if other == 0:
                 raise ZeroDivisionError
             
             return Fraction(
-                self.__numerator - other * self.__denominator,
-                self.__denominator
+                self.__numerator,
+                self.__denominator * other
             )
         else:
             raise NotImplemented
@@ -116,7 +116,7 @@ class Fraction:
     def __iadd__(self, other):
         if isinstance(other, Fraction):
             self.__numerator = self.__numerator * other.__denominator + self.__denominator * other.__numerator
-            self.__denominator = self.__numerator * other.__denominator
+            self.__denominator = self.__denominator * other.__denominator
             return self
         elif isinstance(other, int):
             self.__numerator += other * self.__denominator
@@ -127,7 +127,7 @@ class Fraction:
     def __isub__(self, other):
         if isinstance(other, Fraction):
             self.__numerator = self.__numerator * other.__denominator - self.__denominator * other.__numerator
-            self.__denominator = self.__numerator * other.__denominator
+            self.__denominator = self.__denominator * other.__denominator
             return self
         elif isinstance(other, int):
             self.__numerator -= other * self.__denominator
@@ -196,7 +196,7 @@ class Fraction:
 
     def __eq__(self, other):
         if isinstance(other, Fraction):
-            return self.__numerator * self.__denominator == self.__denominator * other.__numerator
+            return self.__numerator * other.__denominator == self.__denominator * other.__numerator
         elif isinstance(other, int):
             return self.__numerator == self.__denominator * other
         else:
@@ -206,7 +206,7 @@ class Fraction:
     #! поэтому перегружаем оба оператора
     def __ne__(self, other):
         if isinstance(other, Fraction):
-            return self.__numerator * self.__denominator != self.__denominator * other.__numerator
+            return self.__numerator * other.__denominator != self.__denominator * other.__numerator
         elif isinstance(other, int):
             return self.__numerator != self.__denominator * other
         else:
@@ -214,7 +214,7 @@ class Fraction:
     
     def __gt__(self, other):
         if isinstance(other, Fraction):
-            return self.__numerator * self.__denominator > self.__denominator * other.__numerator
+            return self.__numerator * other.__denominator > self.__denominator * other.__numerator
         elif isinstance(other, int):
             return self.__numerator > self.__denominator * other
         else:
@@ -249,13 +249,13 @@ class Fraction:
         return tmp
     #TODO: write some other methods (goto c++ realisation)
 
-def main():
-    x = Fraction(1, 2)
-    print(x.decimal())
-    print(Fraction().float2frac(6.25))
+# def main():
+#     x = Fraction(1, 2)
+#     print(x.decimal())
+#     print(Fraction().float2frac(6.25))
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
 
 #??? кривая реализция проверки при делении на 0 в конструкторе и в операторе (создаю empty = N / D)
 #??? перегрузил операторы типа __radd__ (когда член класса стоит справа от "+", а слагаемое слева не является членом класса), почему в питоне так дофига надо перегружать самомму
