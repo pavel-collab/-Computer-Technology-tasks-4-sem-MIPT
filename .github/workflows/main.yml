@@ -28,4 +28,4 @@ jobs:
     
     steps:
       - name: Run tests
-        run: coverage run tests.py
+        run: python tests.py -v
