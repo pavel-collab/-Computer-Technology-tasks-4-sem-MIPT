@@ -29,6 +29,7 @@ jobs:
     steps:
       - name: Run tests
         run: |
-             ls &&
+             ls -l -a &&
+             cd Computer-Technology-tasks-4-sem-MIPT &&
              pwd &&
              python tests.py -v
