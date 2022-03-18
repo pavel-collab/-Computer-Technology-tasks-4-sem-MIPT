@@ -28,4 +28,7 @@ jobs:
     
     steps:
       - name: Run tests
-        run: python tests.py -v
+        run: |
+             ls &&
+             pwd &&
+             python tests.py -v
