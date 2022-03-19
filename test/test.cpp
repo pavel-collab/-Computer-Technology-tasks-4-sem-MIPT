@@ -8,6 +8,8 @@
 
 #include "../include/frac_class.hpp"
 
+//??? как проверить в тестах обработку исключений
+
 TEST(ClassFraction, FractionGetters)
 {   
     Fraction<int> a(1, 2);
@@ -75,6 +77,10 @@ TEST(ClassFraction, FractionUnarOperators)
     ++b;
     ASSERT_EQ(b, Fraction<int64_t>(28, 3));
     ASSERT_EQ(b++, Fraction<int64_t>(31, 3));
+
+    --a;
+    ASSERT_EQ(a, Fraction<int64_t>(1, 15));
+    ASSERT_TRUE(a++ == Fraction<int64_t>(16, 15));
 
 }
 
