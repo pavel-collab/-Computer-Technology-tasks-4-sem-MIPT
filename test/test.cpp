@@ -104,7 +104,24 @@ TEST(ClassFraction, FractionBinarOperators)
     EXPECT_EQ(p, Fraction<short>(-5, 6));
 }
 
-//! дописать тесты на операторы сравнения
+TEST(ClassFraction, FractionCompareOperators)
+{
+    Fraction<int> a(1, 2);
+    Fraction<int> b(1, 3);
+
+    EXPECT_TRUE(a != b) << "\x1b[33mError_mes\x1b[0m";
+    auto x = a / 3;
+    auto y = b / 2;
+    EXPECT_TRUE(x == y) << "\x1b[33mError_mes\x1b[0m";
+    EXPECT_TRUE(a > b) << "\x1b[33mError_mes\x1b[0m";
+    x = a - 1;
+    EXPECT_TRUE(x < b) << "\x1b[33mError_mes\x1b[0m";
+    EXPECT_TRUE(a >= a) << "\x1b[33mError_mes\x1b[0m";
+    EXPECT_TRUE(b <= b) << "\x1b[33mError_mes\x1b[0m";
+
+	EXPECT_FALSE(a < b) << "\x1b[33mError_mes\x1b[0m";
+    EXPECT_FALSE(a > a++) << "\x1b[33mError_mes\x1b[0m";
+}
 
 TEST(ClassFraction, FractionOtherMethods)
 {

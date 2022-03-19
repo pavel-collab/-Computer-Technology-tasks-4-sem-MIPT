@@ -63,19 +63,30 @@ class FractionClassTests(unittest.TestCase):
         self.assertEqual(p, frac_class.Fraction(-5, 6))
 
     def test_other_methods(self):
-        a = frac_class.Fraction(1, 2);
-        b = frac_class.Fraction(-5, 20);
+        a = frac_class.Fraction(1, 2)
+        b = frac_class.Fraction(-5, 20)
 
-        self.assertEqual(a.decimal(), 0.5);
-        self.assertEqual(b.decimal(), -0.25);
+        self.assertEqual(a.decimal(), 0.5)
+        self.assertEqual(b.decimal(), -0.25)
 
-        # x = 0.125
-        # y = 0.3
-        # z = 0.203
+        self.assertEqual(frac_class.Fraction().float2frac(0.125), frac_class.Fraction(1, 8))
+        self.assertEqual(frac_class.Fraction().float2frac(0.3), frac_class.Fraction(3, 10))
+        self.assertEqual(frac_class.Fraction().float2frac(0.203), frac_class.Fraction(203, 1000))
 
-        self.assertEqual(frac_class.Fraction().float2frac(0.125), frac_class.Fraction(1, 8));
-        self.assertEqual(frac_class.Fraction().float2frac(0.3), frac_class.Fraction(3, 10));
-        self.assertEqual(frac_class.Fraction().float2frac(0.203), frac_class.Fraction(203, 1000));
+    def test_compare_methods(self):
+        a = frac_class.Fraction(1, 2)
+        b = frac_class.Fraction(1, 3)
+
+        self.assertTrue(a != b)
+        x = a / 3
+        y = b / 2
+        self.assertTrue(x == y)
+        self.assertTrue(a > b)
+        x = a - 1
+        self.assertTrue(x < b)
+        self.assertTrue(a >= a)
+        self.assertTrue(b <= b)
+
 
 
 if __name__ == '__main__':
