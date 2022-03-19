@@ -1,14 +1,18 @@
-# -------------------------------
-# comments example
-# -------------------------------
+# ------------------------
+# ATTENTION:
+# каждый новый job чистит рабочее пространство
+# ------------------------
+
 name: Run-tests-on-any-Push-event_to_master
 # Запуск при любом push евенте в ветку master
 on:
   push:
     branches:
       - main
+# create job for working
 jobs:
   prepare_for_tests:
+    # будем выполнять инструкции на ВМ на последней версии ubuntu
     runs-on: ubuntu-latest
     
     steps:
@@ -21,8 +25,14 @@ jobs:
         with:
           python-version: '3.8'
           architecture: 'x64'
+          
       - name: Run tests
-        run: |
-             ls -l -a &&
-             pwd &&
-             python tests.py -v
+        run: python tests.py -v
+        
+        # если нужно отдебажить выполнение инструкций
+        # стандартные методы:
+        # run: |
+             # ls -l -a &&
+             # pwd &&
+             # python tests.py -v
+    
