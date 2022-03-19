@@ -1,6 +1,3 @@
-//* g++ --coverage test.cpp -std=c++17 -lgtest -lgtest_main -lpthread -o test
-//* lcov -t "test" -o test.info -c -d . --rc lcov_branch_coverage=1 --rc lcov_function_coverage=1
-//* genhtml -o report test.info
 #include <iostream>
 #include <cmath> // for floor
 #include <numeric> // for std::gcd 
@@ -8,7 +5,8 @@
 #include <stdexcept> // for exceptions types
 #include <utility> // for std::rel_ops
 #include <gtest/gtest.h>
-#include "frac_class.hpp"
+
+#include "../include/frac_class.hpp"
 
 TEST(ClassFraction, FractionGetters)
 {   
@@ -72,7 +70,6 @@ TEST(ClassFraction, FractionUnarOperators)
     Fraction<int64_t> b(25, 3);
 
     ++a;
-    std::cout<< a << std::endl;
     ASSERT_EQ(a, Fraction<int64_t>(16, 15));
     ASSERT_EQ(a++, Fraction<int64_t>(31, 15));
     ++b;

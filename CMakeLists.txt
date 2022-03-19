@@ -9,15 +9,15 @@ set(CMAKE_CXX_STANDARD 17)
 
 # EXECUTABLE FILE PROPERTIES
 set(MAIN "main")
-set(TEST "test")
+set(TEST "runUnitTests")
 
 set(HEADERS
     frac_class.hpp
 )
 
 # SRC FILES
-set(SRC_MAIN main.cpp)
-set(SRC_TEST test.cpp)
+set(SRC_MAIN src/main.cpp)
+set(SRC_TEST test/test.cpp)
 
 # EXECUTABLES
 add_executable(${MAIN} ${SRC_MAIN})
@@ -33,10 +33,14 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 # Unit Tests
 ################################
 # Add test cpp file
-add_executable(runUnitTests test.cpp)
+add_executable(runUnitTests ${SRC_TEST})
 # Link test executable against gtest & gtest_main
 target_link_libraries(runUnitTests gtest gtest_main pthread)
 add_test(runUnitTests runUnitTests)
+
+# TARGETS INCLUDE DERICTORIES
+target_include_directories(${MAIN} PRIVATE include src)
+target_include_directories(${TEST} PRIVATE include test)
 
 add_compile_options(
     -Werror
