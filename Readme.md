@@ -42,15 +42,11 @@ ATTENTION: after the running file "clean.sh" all info files include dir "report"
 
 ## Python realisation
 
-Firstly you need to give access to execute to your file frac_class.py:
-```
-chmod +x frac_class.py
-```
-To run executable file, use:
-```
-./frac_class.py
-```
+File frac_class.py contain python realisation of class "Fraction".   
 To run test file use:
 ```
 python3 tests.py -v
 ```
+
+Status of last Deployment:<br>
+<img src="http://github.com/adv4000/Computer-Technology-tasks-4-sem-MIPT/workflows/Run-tests-on-any-Push-event_to_master/bandge.svg?branch=master"><br>

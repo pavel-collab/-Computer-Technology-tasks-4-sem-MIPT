@@ -248,14 +248,3 @@ class Fraction:
         tmp += whole_part
         return tmp
     #TODO: write some other methods (goto c++ realisation)
-
-# def main():
-#     x = Fraction(1, 2)
-#     print(x.decimal())
-#     print(Fraction().float2frac(6.25))
-
-# if __name__ == '__main__':
-#     main()
-
-#??? кривая реализция проверки при делении на 0 в конструкторе и в операторе (создаю empty = N / D)
-#??? перегрузил операторы типа __radd__ (когда член класса стоит справа от "+", а слагаемое слева не является членом класса), почему в питоне так дофига надо перегружать самомму
