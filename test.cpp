@@ -1,4 +1,6 @@
-//* g++ test.cpp -std=c++17 -lgtest -lgtest_main -lpthread
+//* g++ --coverage test.cpp -std=c++17 -lgtest -lgtest_main -lpthread -o test
+//* lcov -t "test" -o test.info -c -d . --rc lcov_branch_coverage=1 --rc lcov_function_coverage=1
+//* genhtml -o report test.info
 #include <iostream>
 #include <cmath> // for floor
 #include <numeric> // for std::gcd 

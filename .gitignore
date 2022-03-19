@@ -1,4 +1,7 @@
 *.out
 *.vscode
+*.gcda
+*.gcno
+*.info
 build
 __pycache__
