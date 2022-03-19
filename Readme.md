@@ -48,5 +48,9 @@ To run test file use:
 python3 tests.py -v
 ```
 
-Status of last Deployment:<br>
-<img src="http://github.com/adv4000/Computer-Technology-tasks-4-sem-MIPT/workflows/Run-tests-on-any-Push-event_to_master/bandge.svg?branch=master"><br>
+### About GitHub Actions
+
+In the directory .github/workfolws you can find file named main.yml. This is a script for GitHub actions, it creat a virtual machine and run python tests every time you push some commits to branch master. Status of last python tests you can veiw of the banner.
+
+Status of last test:
+<br><img src="https://github.com/pavel-collab/Computer-Technology-tasks-4-sem-MIPT/actions/workflows/main.yml/badge.svg"><br>
