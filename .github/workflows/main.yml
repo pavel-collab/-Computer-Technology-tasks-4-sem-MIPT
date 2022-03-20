@@ -25,7 +25,8 @@ jobs:
         with:
           python-version: '3.8'
           architecture: 'x64'
-          
+        
+        # Устанавливаем python coverage для отображения тестового покрытия
       - name: Install python coverage
         run: pip install coverage
           
