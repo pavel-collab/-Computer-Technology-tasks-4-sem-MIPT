@@ -3,7 +3,7 @@
 # каждый новый job чистит рабочее пространство
 # ------------------------
 
-name: Run-tests-on-any-Push-event_to_master
+name: Run-tests-on-any-Push-event-to-master
 # Запуск при любом push евенте в ветку master
 on:
   push:
@@ -25,6 +25,9 @@ jobs:
         with:
           python-version: '3.8'
           architecture: 'x64'
+          
+      - name: Install python coverage
+        run: pip install coverage
           
       - name: Run tests
         run: coverage run tests.py && coverage report -m
