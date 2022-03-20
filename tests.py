@@ -1,5 +1,5 @@
 
-#* run with: python3 tests.py -v
+#* run with: coverage run tests.py && coverage report -m
 import unittest
 import frac_class
 

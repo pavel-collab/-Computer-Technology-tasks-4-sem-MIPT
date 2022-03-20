@@ -3,6 +3,7 @@
 *.gcda
 *.gcno
 *.info
+.coverage
 test_go
 report
 build

@@ -47,6 +47,28 @@ To run test file use:
 ```
 python3 tests.py -v
 ```
+We use _python coverage_ for output test coverage. If you want to veiw it, firstly you need to install nessesary package:
+```
+pip install coverage
+```
+Then you can use
+```
+coverage run tests.py && coverage report -m
+```
+and you will see detailed information about tests and test coverage.
+```
+.....
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK
+Name            Stmts   Miss  Cover   Missing
+---------------------------------------------
+frac_class.py     137     32    77%   15, 34, 51, 66, 81, 87, 95, 102, 106-112, 125, 136, 147, 152, 159, 164, 169, 175, 181, 187-190, 200-203, 210-213, 218-221
+tests.py           74      0   100%
+---------------------------------------------
+TOTAL             211     32    85%
+```
 
 ### About GitHub Actions
 
