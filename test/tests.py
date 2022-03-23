@@ -1,7 +1,11 @@
 
 #* run with: coverage run tests.py && coverage report -m
 import unittest
-import frac_class
+import os
+import sys
+sys.path.append(os.path.abspath('..'))
+
+import include.frac_class as frac_class
 
 class FractionClassTests(unittest.TestCase):
 
