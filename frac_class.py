@@ -184,7 +184,7 @@ class Fraction:
         )
 
     def __rtruediv__(self, other):
-        if self.__denominator == 0:
+        if (self.__denominator == 0) or (self.__numerator == 0):
             raise ZeroDivisionError
 
         return Fraction(
@@ -221,13 +221,18 @@ class Fraction:
             raise NotImplemented
     
     def __lt__(self, other):
-        return other > self
+        if isinstance(other, Fraction):
+            return self.__numerator * other.__denominator < self.__denominator * other.__numerator
+        elif isinstance(other, int):
+            return self.__numerator < self.__denominator * other
+        else:
+            raise NotImplemented
     
     def __ge__(self, other):
         return self > other or self == other
     
     def __le__(self, other):
-        return other > self or self == other
+        return self < other or self == other
 
     #----------------------------------------------------Some other methods for class Fraction----------------------------------------------------
 

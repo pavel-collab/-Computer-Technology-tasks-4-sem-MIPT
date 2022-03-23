@@ -57,17 +57,16 @@ coverage run tests.py && coverage report -m
 ```
 and you will see detailed information about tests and test coverage.
 ```
-.....
 ----------------------------------------------------------------------
-Ran 5 tests in 0.000s
+Ran 26 tests in 0.003s
 
-OK
+OK (expected failures=21)
 Name            Stmts   Miss  Cover   Missing
 ---------------------------------------------
-frac_class.py     137     32    77%   15, 34, 51, 66, 81, 87, 95, 102, 106-112, 125, 136, 147, 152, 159, 164, 169, 175, 181, 187-190, 200-203, 210-213, 218-221
-tests.py           74      0   100%
+frac_class.py     141      5    96%   34, 169, 175, 181, 190
+tests.py          168      0   100%
 ---------------------------------------------
-TOTAL             211     32    85%
+TOTAL             309      5    98%
 ```
 
 ### About GitHub Actions

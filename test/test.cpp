@@ -147,3 +147,46 @@ TEST(ClassFraction, FractionOtherMethods)
     ASSERT_EQ(t.dec_to_reg(y), Fraction<int>(3, 10));
     ASSERT_EQ(t.dec_to_reg(z), Fraction<int>(203, 1000));
 }
+
+TEST(ClassFraction, ConstructorException)
+{
+    try {
+        Fraction<int> a(3, 0);
+    }
+    catch (std::runtime_error){
+        // if the test programm caught exception, then 
+        // main programm catchs exceptions correctly
+        std::cout << "\x1b[33mZero devision exception had been caught successful\x1b[0m" << std::endl;
+        SUCCEED();
+        return;
+    }
+    FAIL() << "\x1b[33mThere are no exceptions\x1b[0m";
+}
+
+TEST(ClassFraction, UnarDivisionException)
+{
+    try {
+        Fraction<int> a(3, 1);
+        a/=0;
+    }
+    catch (std::runtime_error){
+        std::cout << "\x1b[33mZero devision exception had been caught successful\x1b[0m" << std::endl;        SUCCEED();
+        return;
+    }
+    FAIL() << "\x1b[33mThere are no exceptions\x1b[0m";
+}
+
+TEST(ClassFraction, BinarDivisionException)
+{
+    try {
+        Fraction<int> a(3, 1);
+        Fraction<int> b(0, 4);
+
+        auto c = a / b;
+    }
+    catch (std::runtime_error){
+        std::cout << "\x1b[33mZero devision exception had been caught successful\x1b[0m" << std::endl;        SUCCEED();
+        return;
+    }
+    FAIL() << "\x1b[33mThere are no exceptions\x1b[0m";
+}
