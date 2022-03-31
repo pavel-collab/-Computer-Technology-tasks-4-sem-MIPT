@@ -31,7 +31,7 @@ jobs:
         run: pip install coverage
           
       - name: Run tests
-        run: coverage run tests.py && coverage report -m
+        run: cd test && coverage run tests.py && coverage report -m
         
         # если нужно отдебажить выполнение инструкций
         # стандартные методы:
